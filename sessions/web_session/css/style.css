@@ -1,3 +1,4 @@
+/* 기본적인 선택자는 tag의 이름을 사용하는 것입니다. 해당 element들 전부에 적용됩니다. */
 a {
     color: red;
 }
@@ -6,6 +7,30 @@ div {
     font-size: 15pt;
 }
 
+/* id는 '#idname' 같은 형식으로 표현합니다. id는 유일하다는 걸 짚어볼게요. */
+#dividividiv {
+    font-weight: bold;
+}
+
+/* class는 '.classname' 같은 형식으로 표현합니다. class는 유일하지 않으니 모든 element에 적용되므로 주의를 요한달까. */
+/* 해당 class에 속하는 tag에만 적용하려면 아래와 같은 형식으로 활용합니다 */
 div.class {
     border-style: solid;
 }
+
+/* 매번 하나씩 하는 것도 그러니 한 번에 적용하려면 ','를 활용합시다. */
+span,
+div {
+    color: blue;
+}
+
+/* html의 특징은 element 안에 element가 중첩되어 들어가 있다는 겁니다. 만약 <a> 안에 있는 <div>에만 적용하고 싶다면? */
+a > div {
+    border-color: brown;
+}
+
+ul p {
+    color: yellow;
+}
+/* 위 두 개의 차이점은 <a> 바로 밑 층위의 <div>에만 적용되는가 혹은 <ul> 안으로 몇 층위를 들어간 <p>에도 적용되는가! */
+/* <ul>과 <p>의 관계를 '>'를 사용해 나타내보자면 ul > li > p입니다. */
