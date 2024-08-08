@@ -65,10 +65,9 @@
     <!-- <a> 태그 안의 텍스트의 색깔을 바꾸고 싶다면? 모든 <div> 태그 안의 텍스트 사이즈를 키우고 싶다면? class="class"인 태그의 내용에는 테두리를 주고 싶다면? -->
     <!-- 모든 건 다 CSS로! 이때 특정 tag 내지는 element를 지정/선택하기 위해서 사용하는 게 앞서 말한 id와 class다! -->
 
+
     
-    
-    
-    
+    <!-- 3. 객체 속성 변경 -->
     
     <script>
         
@@ -99,7 +98,7 @@
     };
 
 
-    // 객체 속성에 접급하는 방법에는 두 가지가 있음 *대괄호 연산자 혹은 마침표 연산자*
+    // 객체 속성에 접근하는 방법에는 두 가지가 있음 *대괄호 연산자 혹은 마침표 연산자*
     console.log(personB["name"]);
     console.log(personB["age"]);
 
@@ -131,7 +130,7 @@
 
         
     // 마찬가지로 html 요소의 속성도 동적으로 변경할 수 있음
-    // 예시로 body에서 <p id="myParagraph">Original text</p> 
+    // 예시로 <p id="myParagraph">Original text</p> 
     
         // 요소 선택
         const paragraph = document.getElementById('myParagraph');
@@ -152,17 +151,7 @@
         console.log(paragraph.getAttribute('class')); // null
 
 
-    
-
-
-
-
     </script>
-
-
-
-
-
     
 </body>
 </html>
