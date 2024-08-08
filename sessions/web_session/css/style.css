@@ -34,3 +34,25 @@ ul p {
 }
 /* 위 두 개의 차이점은 <a> 바로 밑 층위의 <div>에만 적용되는가 혹은 <ul> 안으로 몇 층위를 들어간 <p>에도 적용되는가! */
 /* <ul>과 <p>의 관계를 '>'를 사용해 나타내보자면 ul > li > p입니다. */
+
+
+/* html에 동적으로 콘텐츠를 추가하는 건 보통 후술한 js를 통해 하는 일이지만, css로도 가능합니다. */
+/* p::before {
+    content: "<add before>"
+}
+
+p::after {
+    content: "<add after>"
+} */
+
+/* 사용자의 액션에 따라 html의 element의 상태가 변한다고 볼 수 있는데, 이러한 동적 상태 역시 css로 제어할 수 있습니다. */
+/* element에 마우스를 올리는 액션은 hover, 버튼 같은 걸 누르고 있으면 active, click 같은 것도 모두 액션 내지는 상태! */
+/* 특히 element를 click 또는 우리의 프로젝트에서 영상을 submit하는 것은 event라고 부를 수 있고, js에서는 이 event를 감지할 예정!*/
+
+p:hover {
+    background-color: aqua;
+}
+
+button:active {
+    color: red;
+}
