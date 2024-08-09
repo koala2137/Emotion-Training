@@ -73,12 +73,13 @@
         
     // 객체 생성 시에는 속성을 지정한 상태로 생성함
     const personA = { 
-        name: "Hone Gildong"
+        name: "Hone Gildong" // 이때 속성은 키와 값으로 구성
     };
         
     // 객체는 모든 자료형의 데이터를 값으로 가질 수 있음
     const personB = {
-        name: ["Hong", "Gildong"],
+        // 여러 개의 속성을 입력할 때는 키와 값 뒤에 쉼표를 넣어 구분
+        name: ["Hong", "Gildong"], 
         age: 20,
         isAdult: true,
     };
@@ -99,14 +100,18 @@
 
 
     // 객체 속성에 접근하는 방법에는 두 가지가 있음 *대괄호 연산자 혹은 마침표 연산자*
+    
+    // 대괄호 연산자는 객체 뒤에 대괄호를 사용하고 키를 입력하면 객체의 요소에 접근할 수 있음
     console.log(personB["name"]);
     console.log(personB["age"]);
 
+    // 마침표 연산자는 객체 뒤에 온점을 사용하고 키를 입력하면 객체의 요소에 접근할 수 있음
     console.log(personC.name.firstName); // Gildong
     console.log(personC.likes[0]); // apple
     console.log(personC.printHello()); // hello
 
 
+        
     // 객체 속성값 변경은 마침표 연산자를 사용
     const person = {
         name: "Hong Gildong",
@@ -116,6 +121,7 @@
     console.log(person.name); // 홍길동
 
 
+        
     // 객체 속성을 동적으로 추가하거나 삭제할 수 있음
     const person = {};
     console.log(person);
@@ -128,9 +134,10 @@
     delete person.name;
     console.log(person); // {}
 
+
         
     // 마찬가지로 html 요소의 속성도 동적으로 변경할 수 있음
-    // 예시로 <p id="myParagraph">Original text</p> 
+    // 예시로 <p id="myParagraph">Original text</p> 를 <body></body> 사이에 입력했다고 가정
     
         // 요소 선택
         const paragraph = document.getElementById('myParagraph');
@@ -149,9 +156,47 @@
         
         // 속성 값 확인
         console.log(paragraph.getAttribute('class')); // null
+        
 
+
+
+        
+    <!-- 4. 이벤트 설정하기 -->
+
+    // 이벤트는 사용자의 행동에 반응해, 예를 들면, 사용자가 버튼을 클릭했을 때 특정 동작을 수행하는 것과 같은 상호작용을 구현할 수 있음.
+    // 핵심은 이벤트 타입, 이벤트 리스너, 이벤트 객체임.
+
+        
+    // 간단한 예제로 버튼의 클릭 이벤트에 반응하는 코드
+    document.querySelector('button').addEventListener('click', function(event) {
+    alert('버튼이 클릭되었습니다!');
+    }); // 페이지 내의 버튼 요소를 선택하고, 해당 버튼이 클릭될 때마다 경고 창을 표시하는 이벤트 리스너를 추가
+
+
+        
+    // 'EventListener'는 웹에서 일어나는 다양한 동작이나 변화, 즉 "이벤트"에 반응하기 위해 사용되는 메커니즘
+    // 웹 페이지 내의 특정 요소에 대한 사용자의 동작(예: 클릭, 키보드 입력, 마우스 움직임 등)이나, 브라우저의 특정 변화(예: 문서 로드 완료, 화면 크기 변화 등)에 반응하여 특정 코드나 함수를 실행
+
+        
+    // 'EventListener'를 사용하는 방법은 대체로 두가지
+        
+    // 1. HTML 요소에 직접 이벤트 핸들러 속성 사용
+    <button onclick="myFunction()">Click me</button>
+
+    // 2. JavaScript에서 addEventListener 메서드 사용
+    document.querySelector('button').addEventListener('click', myFunction);
+        // 참고로 querySelector(selector): 주어진 CSS 선택자(selector)에 해당하는 첫 번째 요소를 반환합니다. 이 예제에서는 'button' 선택자를 사용하여 첫 번째 <button> 요소를 선택합니다.
+
+
+        
+    // 'addEventListener'의 기본 구조
+    target.addEventListener(type, listener);
+
+    // target: 이벤트 리스너를 추가할 element 예: document.querySelector('button')
+    // type: 반응하려는 이벤트의 유형을 나타내는 문자열이다. 예: 'click', 'mousedown', 'keyup' 등
+    // listener: 이벤트가 발생했을 때 호출될 함수 또는 객체 예: myFunction
 
     </script>
-    
+
 </body>
 </html>
