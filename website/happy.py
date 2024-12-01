@@ -170,6 +170,24 @@ def delete_file():
     for del_emo in emotions_of_interest:
         if os.path.exists(f"photo_{del_emo}.jpg"):
             os.remove(f"photo_{del_emo}.jpg")
+    
+    # if os.path.exists("photo_happy.jpg"):
+    #     os.remove("photo_happy.jpg")
+    # if os.path.exists("photo_sad.jpg"):
+    #     os.remove("photo_sad.jpg")
+    # if os.path.exists("photo_angry.jpg"):
+    #     os.remove("photo_angry.jpg")
+    # if os.path.exists("photo_usual.jpg"):
+    #     os.remove("photo_usual.jpg")
+    # for del_emo in emotions_of_interest:
+    #     if os.path.exists(f"photo_{del_emo}.jpg"):
+    #         try:
+    #             os.remove(f"photo_{del_emo}.jpg")
+    #             st.write(f"Deleted: photo_{del_emo}.jpg")
+    #         except Exception as e:
+    #             st.write(f"Error deleting photo_{del_emo}.jpg: {e}")
+    #     else:
+    #         st.write(f"File not found: photo_{del_emo}.jpg")
 
 # if any(os.path.exists(f"photo_{emo}.jpg") for emo in emotions_of_interest):
 #     st.button("Clear all the photos", use_container_width=True, on_click=delete_file)
@@ -194,11 +212,11 @@ for i, emo  in enumerate(emotions_of_interest):
         st.markdown("---")
     else:
         new_emotions_of_interest = emotions_of_interest[i:]
-        for i, emo in enumerate(new_emotions_of_interest):
-            pictures_of_interest[emo] = st.camera_input(f"Show your {emo} face! Do not exaggerate and just show your natural {emo} face.")
+        for i, new_emo in enumerate(new_emotions_of_interest):
+            pictures_of_interest[new_emo] = st.camera_input(f"Show your {new_emo} face! Do not exaggerate and just show your natural {new_emo} face.")
             st.markdown("---")
-            if pictures_of_interest[emo]:
-                image = Image.open(pictures_of_interest[emo])
+            if pictures_of_interest[new_emo]:
+                image = Image.open(pictures_of_interest[new_emo])
                 rgb_image = np.array(image)
                 bgr_image = rgb_image[..., ::-1]
                 gray, detected_faces, coord = detect_face(bgr_image)
@@ -207,7 +225,7 @@ for i, emo  in enumerate(emotions_of_interest):
                     time.sleep(.5)
                     st.toast('Please clear the photo and try again!', icon='🙇‍♂️')
                 else:
-                    image.save(f"photo_{emo}.jpg")
+                    image.save(f"photo_{new_emo}.jpg")
                     st.toast('Image saved! Scroll down for the next.', icon='🙆‍♂️')
         break
 
@@ -239,6 +257,12 @@ if len(predictions) == 4:
     result_container.title(":smiley:")
     result_container.subheader('Finished analyzing!')
     result_container.subheader(f'Your e:MBTI is... {final_type}')
-    st.button("Do you want to retry?", on_click=delete_file)
+    if st.button("Do you want to retry?"):
+        emotions_of_interest = ['happy', 'sad', 'angry', 'usual']
+        for del_emo in emotions_of_interest:
+            if os.path.exists(f"photo_{del_emo}.jpg"):
+                os.remove(f"photo_{del_emo}.jpg")
+                st.write(f"Deleted photo_{del_emo}.jpg")
+        st.rerun()        
 
 
