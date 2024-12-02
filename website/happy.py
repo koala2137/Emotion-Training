@@ -262,7 +262,6 @@ if len(predictions) == 4:
         for del_emo in emotions_of_interest:
             if os.path.exists(f"photo_{del_emo}.jpg"):
                 os.remove(f"photo_{del_emo}.jpg")
-                st.write(f"Deleted photo_{del_emo}.jpg")
         st.rerun()        
 
 
