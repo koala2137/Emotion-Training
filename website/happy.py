@@ -166,14 +166,14 @@ st.markdown("""
 st.write("🛎️ 분석을 마친 후 페이지 하단에 생성될 버튼을 잊지 말고 눌러주세요! 🛎️")
 st.markdown("---")
 # Streamlit 앱 실행
-emotions_of_interest = ['happy', 'sad', 'angry', 'usual']
+emotions_of_interest = [['happy', '행복한'], ['sad', '슬픈'], ['angry', '화난'], ['usual', '평상시의']]
 kor_emotions = ['행복한', '슬픈', '화난', '평상시의']
 pictures_of_interest = {}
 
 def delete_file():
     for del_emo in emotions_of_interest:
-        if os.path.exists(f"photo_{del_emo}.jpg"):
-            os.remove(f"photo_{del_emo}.jpg")
+        if os.path.exists(f"photo_{del_emo[0]}.jpg"):
+            os.remove(f"photo_{del_emo[0]}.jpg")
     
     # if os.path.exists("photo_happy.jpg"):
     #     os.remove("photo_happy.jpg")
@@ -210,19 +210,19 @@ def delete_file():
 #             column.button(f"Clear the {button_emo} photo", use_container_width=True, on_click=lambda: delete_file(button_emo))
     
 for i, emo  in enumerate(emotions_of_interest):
-    if os.path.exists(f"photo_{emo}.jpg"):
-        st.subheader(f"당신의 {kor_emotions[i]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
-        st.write(f"Show your {emo} face! Do not exaggerate and just show your natural {emo} face.")
-        st.image(f"photo_{emo}.jpg")
+    if os.path.exists(f"photo_{emo[0]}.jpg"):
+        st.write(f"당신의 {emo[1]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
+        st.write(f"Show your {emo[0]} face! Do not exaggerate and just show your natural {emo} face.")
+        st.image(f"photo_{emo[0]}.jpg")
         st.markdown("---")
     else:
         new_emotions_of_interest = emotions_of_interest[i:]
         for i, new_emo in enumerate(new_emotions_of_interest):
-            st.subheader(f"당신의 {kor_emotions[i]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
-            pictures_of_interest[new_emo] = st.camera_input(f"Show your {new_emo} face! Do not exaggerate and just show your natural {new_emo} face.")
+            st.write(f"당신의 {new_emo[1]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
+            pictures_of_interest[new_emo[0]] = st.camera_input(f"Show your {new_emo[0]} face! Do not exaggerate and just show your natural {new_emo[0]} face.")
             st.markdown("---")
-            if pictures_of_interest[new_emo]:
-                image = Image.open(pictures_of_interest[new_emo])
+            if pictures_of_interest[new_emo[0]]:
+                image = Image.open(pictures_of_interest[new_emo[0]])
                 rgb_image = np.array(image)
                 bgr_image = rgb_image[..., ::-1]
                 gray, detected_faces, coord = detect_face(bgr_image)
@@ -231,14 +231,14 @@ for i, emo  in enumerate(emotions_of_interest):
                     time.sleep(.5)
                     st.toast('Please clear the photo and try again!', icon='🙇‍♂️')
                 else:
-                    image.save(f"photo_{new_emo}.jpg")
+                    image.save(f"photo_{new_emo[0]}.jpg")
                     st.toast('Image saved! Scroll down for the next.', icon='🙆‍♂️')
         break
 
 predictions = []
-if all(os.path.exists(f"photo_{emo}.jpg") for emo in emotions_of_interest):
+if all(os.path.exists(f"photo_{emo[0]}.jpg") for emo in emotions_of_interest):
     for emo in emotions_of_interest: 
-        prediction, fig = analyze_emotion(f"photo_{emo}.jpg", model)
+        prediction, fig = analyze_emotion(f"photo_{emo[0]}.jpg", model)
         predictions.append(prediction)
 
 if len(predictions) == 4:
@@ -266,8 +266,8 @@ if len(predictions) == 4:
     if st.button("Do you want to retry? or Do you want to leave?"):
         emotions_of_interest = ['happy', 'sad', 'angry', 'usual']
         for del_emo in emotions_of_interest:
-            if os.path.exists(f"photo_{del_emo}.jpg"):
-                os.remove(f"photo_{del_emo}.jpg")
+            if os.path.exists(f"photo_{del_emo[0]}.jpg"):
+                os.remove(f"photo_{del_emo[0]}.jpg")
         st.rerun()        
 
 
