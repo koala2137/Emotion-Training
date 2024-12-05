@@ -163,10 +163,11 @@ st.markdown("""
             </style>
             """, unsafe_allow_html=True)
 
-st.write("🛎️ 분석을 마친 후 페이지 하단에 생성될 버튼을 잊지 말고 눌러주세요!")
+st.write("🛎️ 분석을 마친 후 페이지 하단에 생성될 버튼을 잊지 말고 눌러주세요! 🛎️")
 st.markdown("---")
 # Streamlit 앱 실행
 emotions_of_interest = ['happy', 'sad', 'angry', 'usual']
+kor_emotions = ['행복한', '슬픈', '화난', '평상시의']
 pictures_of_interest = {}
 
 def delete_file():
@@ -210,12 +211,14 @@ def delete_file():
     
 for i, emo  in enumerate(emotions_of_interest):
     if os.path.exists(f"photo_{emo}.jpg"):
+        st.subheader(f"당신의 {kor_emotions[i]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
         st.write(f"Show your {emo} face! Do not exaggerate and just show your natural {emo} face.")
         st.image(f"photo_{emo}.jpg")
         st.markdown("---")
     else:
         new_emotions_of_interest = emotions_of_interest[i:]
         for i, new_emo in enumerate(new_emotions_of_interest):
+            st.subheader(f"당신의 {kor_emotions[i]} 표정을 보여주세요! 과장 없는 자연스러운 표정을 지어주세요.")
             pictures_of_interest[new_emo] = st.camera_input(f"Show your {new_emo} face! Do not exaggerate and just show your natural {new_emo} face.")
             st.markdown("---")
             if pictures_of_interest[new_emo]:
@@ -257,10 +260,10 @@ if len(predictions) == 4:
         final_type = 'SACL(Sad+Closed)'
     
     result_container = st.container(border=True)
-    result_container.title(":smiley:")
+    result_container.title(":worried:")
     result_container.subheader('Finished analyzing!')
     result_container.subheader(f'Your e:MBTI is... {final_type}')
-    if st.button("Do you want to retry?"):
+    if st.button("Do you want to retry? or Do you want to leave?"):
         emotions_of_interest = ['happy', 'sad', 'angry', 'usual']
         for del_emo in emotions_of_interest:
             if os.path.exists(f"photo_{del_emo}.jpg"):
